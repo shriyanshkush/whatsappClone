@@ -74,10 +74,9 @@ fun TopBar() {
                     )
                 } else{
                     Text(
-                        text = "Update",
-                        fontSize = 28.sp,
+                        text = "Updates",
+                        fontSize = 25.sp,
                         color = Color.Black,
-                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(start = 12.dp, top = 4.dp)
                     )
                 }

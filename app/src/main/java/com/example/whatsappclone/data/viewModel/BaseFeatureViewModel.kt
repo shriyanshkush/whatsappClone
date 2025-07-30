@@ -41,7 +41,7 @@ class BaseFeatureViewModel : ViewModel() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         val name = snapshot.child("name").getValue(String::class.java)
-                        val profileUrl = snapshot.child("profileUrl").getValue(String::class.java)
+                        val profileUrl = snapshot.child("pfpUrl").getValue(String::class.java)
                         callback(name, profileUrl)
                     } else {
                         callback(null, null)
@@ -89,6 +89,8 @@ class BaseFeatureViewModel : ViewModel() {
     fun addUsertoChat(senderName:String,senderPfpUrl:String,reciverName:String,reciverUserId:String,reciverPfpUrl:String) {
         if(currentUserId==null) return
 
+        if(currentUserId==reciverUserId) return
+
         val chatId = if (currentUserId < reciverUserId) "${currentUserId}_${reciverUserId}" else "${reciverUserId}_${currentUserId}"
 
         val senderChatData = mapOf(
@@ -99,6 +101,7 @@ class BaseFeatureViewModel : ViewModel() {
             "lastMessageTimestamp" to 0
         )
 
+
         val reciverChatData = mapOf(
             "reciverUserId" to currentUserId,
             "reciverName" to senderName,
@@ -106,6 +109,11 @@ class BaseFeatureViewModel : ViewModel() {
             "lastMessage" to "No Message",
             "lastMessageTimestamp" to 0
         )
+
+        Log.d("chatsenderpfp",senderPfpUrl)
+
+        Log.d("ChatDataLog", "Sender Chat Data: $senderChatData")
+        Log.d("ChatDataLog", "Receiver Chat Data: $reciverChatData")
 
         val updates = mapOf(
             "userChats/$currentUserId/$chatId" to senderChatData,

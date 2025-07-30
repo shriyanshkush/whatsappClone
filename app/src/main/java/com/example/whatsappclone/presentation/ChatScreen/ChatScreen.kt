@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -55,6 +56,9 @@ fun ChatScreen(
 
     val context= LocalContext.current
 
+    val listState = rememberLazyListState()
+
+
     // Image Picker Launcher
     val imagePickerLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         uri?.let {
@@ -77,7 +81,8 @@ fun ChatScreen(
     }
 
     Scaffold(
-        modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing),
+
+        modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing).background(Color.White),
         topBar = { ChatTopBar(navHostController = navController, name = userName, pfpUrl = profileUrl) },
         bottomBar = {
             ChatBottomBar(
@@ -131,7 +136,16 @@ fun ChatScreen(
 
             is ChatUiState.Success -> {
                 val messages = (uiState as ChatUiState.Success).messages
+
+                // Instantly scroll to last message
+                LaunchedEffect(messages.size) {
+                    if (messages.isNotEmpty()) {
+                        listState.scrollToItem(messages.lastIndex)
+                    }
+                }
+
                 LazyColumn(
+                    state = listState,
                     modifier = Modifier
                         .fillMaxSize()
                         .imePadding()
@@ -143,6 +157,8 @@ fun ChatScreen(
                     }
                 }
             }
+
+
         }
     }
 }

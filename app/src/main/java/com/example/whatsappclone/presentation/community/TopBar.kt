@@ -75,9 +75,8 @@ fun TopBar() {
                 } else{
                     Text(
                         text = "Communities",
-                        fontSize = 28.sp,
+                        fontSize = 25.sp,
                         color = Color.Black,
-                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(start = 12.dp, top = 4.dp)
                     )
                 }

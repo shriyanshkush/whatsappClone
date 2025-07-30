@@ -139,7 +139,7 @@ fun HomeScreen(navHostController: NavHostController, homebaseViewModel: BaseFeat
                 } else {
                     Text(
                         text = "WhatsApp",
-                        fontSize = 18.sp,
+                        fontSize = 25.sp,
                         color = colorResource(R.color.lightGreen),
                         modifier = Modifier
                             .align(Alignment.CenterStart)
@@ -280,7 +280,7 @@ fun AddUserPopUop(
                             onUserAdd(userFound!!.first, userFound!!.second, userFound!!.third)
                             onDismis()
                         },
-                        modifier = Modifier.height(30.dp),
+                        modifier = Modifier.height(40.dp),
                         colors = ButtonDefaults.buttonColors(colorResource(R.color.lightGreen))
                     ) {
                         Text("Add user to Chat")
