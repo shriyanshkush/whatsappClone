@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+# Ignore real secrets
+app/src/main/java/com/example/whatsappclone/Secrets.kt

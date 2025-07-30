@@ -53,12 +53,15 @@ import androidx.navigation.NavController
 import com.example.whatsappclone.Navigation.Routes
 import com.example.whatsappclone.R
 import com.example.whatsappclone.data.viewModel.AuthState
+import com.example.whatsappclone.data.viewModel.BaseFeatureViewModel
+import com.example.whatsappclone.data.viewModel.BaseViewModel
 import com.example.whatsappclone.data.viewModel.PhoneAuthViewModel
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("ContextCastToActivity")
 @Composable
-fun UserRegistration(navController: NavController, phoneAuthViewModel: PhoneAuthViewModel = hiltViewModel()) {
+fun UserRegistration(navController: NavController, phoneAuthViewModel: PhoneAuthViewModel = hiltViewModel(),baseViewModel: BaseFeatureViewModel) {
 
     val authState by phoneAuthViewModel.authState.collectAsState()
     val context = LocalContext.current
@@ -315,9 +318,30 @@ fun UserRegistration(navController: NavController, phoneAuthViewModel: PhoneAuth
 
                 phoneAuthViewModel.resetAuthState()
 
-                navController.navigate(Routes.UserProfileSetScreen) {
-                    popUpTo<Routes.UserRegisterScreen> {
-                        inclusive = true
+                val currUserId=FirebaseAuth.getInstance().currentUser?.uid
+
+                if(currUserId!=null) {
+                    baseViewModel.getCurrentUserDetails(currUserId) {
+                        name,pfp ->
+                        if(name!=null) {
+                            navController.navigate(Routes.HomeScreen) {
+                                popUpTo<Routes.UserRegisterScreen> {
+                                    inclusive = true
+                                }
+                            }
+                        } else{
+                            navController.navigate(Routes.UserProfileSetScreen) {
+                                popUpTo<Routes.UserRegisterScreen> {
+                                    inclusive = true
+                                }
+                            }
+                        }
+                    }
+                } else{
+                    navController.navigate(Routes.UserProfileSetScreen) {
+                        popUpTo<Routes.UserRegisterScreen> {
+                            inclusive = true
+                        }
                     }
                 }
             }

@@ -2,10 +2,11 @@ package com.example.whatsappclone.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+// ✅ WhatsApp Colors
+val WhatsAppGreen = Color(0xFF075E54)    // Primary color (AppBar, tabs)
+val WhatsAppLightGreen = Color(0xFF25D366) // Accent (FAB, send button)
+val WhatsAppBackground = Color(0xFFFFFFFF) // Chat background
+val WhatsAppDarkBackground = Color(0xFF121B22) // Dark mode background
+val WhatsAppChatBubble = Color(0xFFD9FDD3) // Sent message bubble
+val WhatsAppChatBubbleDark = Color(0xFF1F2C34) // Dark mode bubble0xFF7D5260)

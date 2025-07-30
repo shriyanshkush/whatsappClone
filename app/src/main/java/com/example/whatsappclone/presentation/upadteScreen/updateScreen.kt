@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.FloatingActionButton
@@ -22,14 +23,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import com.example.whatsappclone.Navigation.Routes
 import com.example.whatsappclone.data.model.ChannelsData
 import com.example.whatsappclone.data.model.StatusData
 import com.example.whatsappclone.R
 import com.example.whatsappclone.presentation.bottomnav.BottomNav
 
 @Composable
-@Preview(showSystemUi = true)
-fun UpdateScreen() {
+fun UpdateScreen(navHostController: NavHostController) {
 
     val scrollstate= rememberScrollState()
 
@@ -74,6 +76,7 @@ fun UpdateScreen() {
         ),
     )
     Scaffold(
+        modifier = Modifier.systemBarsPadding(),
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {},
@@ -89,7 +92,15 @@ fun UpdateScreen() {
             }
         },
         bottomBar = {
-            BottomNav()
+            BottomNav(navHostController, selectedItem =0, onClick = {
+                    index: Int ->
+                when(index) {
+                    0->{navHostController.navigate(Routes.HomeScreen)}
+                    1->{navHostController.navigate(Routes.UpdateScreen)}
+                    2->{navHostController.navigate(Routes.CommuntiyScreen)}
+                    3->{navHostController.navigate(Routes.CallScreen)}
+                }
+            })
         },
         topBar = {
             TopBar()

@@ -124,32 +124,29 @@ class PhoneAuthViewModel  @Inject constructor(
         sighInWithCredential(credential,context)
     }
 
-    fun saveUserProfile(userID:String,name:String,status:String,pfpUrl:Bitmap) {
-
-        val encodedPfpUrl=pfpUrl?.let { convertBitmaptoBase64(it)}
-
-        val userProfile=phoneAuthUser(
+    fun saveUserProfileUrl(
+        userID: String,
+        name: String,
+        status: String,
+        pfpUrl: String   // Cloudinary URL instead of Bitmap
+    ) {
+        val userProfile = phoneAuthUser(
             userId = userID,
             name = name,
             status = status,
-            pfpUrl = encodedPfpUrl,
-            phoneNo = firebaseAuth.currentUser?.phoneNumber?:""
+            pfpUrl = pfpUrl,  // now storing the URL
+            phoneNo = firebaseAuth.currentUser?.phoneNumber ?: ""
         )
-        val database=firebaseDatabase.reference
-
-        Log.d("FirebaseProfile", "userId=$userID, name=$name, status=$status")
-        Log.d("FirebaseProfile", "base64 length=${encodedPfpUrl?.length}")
-
-
-        database.child("users").child(userID).setValue(userProfile)
+        firebaseDatabase.reference.child("users").child(userID).setValue(userProfile)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("FirebaseProfile", "User profile saved.")
+                    Log.d("FirebaseProfile", "User profile saved with Cloudinary URL.")
                 } else {
                     Log.e("FirebaseProfile", "Save failed: ${task.exception?.message}")
                 }
             }
     }
+
 
     private fun convertBitmaptoBase64(bitmap: Bitmap) :String{
         val byteArrayOutputStream=ByteArrayOutputStream()
