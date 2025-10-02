@@ -26,9 +26,8 @@ The app uses modern Android architecture patterns (**MVVM**, **Hilt**) and provi
 
 ## 📂 Project Structure
 
-# 
-
-`com.example.whatsappclone
+```text
+com.example.whatsappclone
 ├── data
 │   ├── model           # Data models
 │   └── viewModel       # ViewModels for MVVM
@@ -55,7 +54,7 @@ The app uses modern Android architecture patterns (**MVVM**, **Hilt**) and provi
 ├── MainActivity.kt
 ├── Secrets.kt           # API keys or secrets
 └── WhatsAppCloneApplication.kt  # Application class
-`
+```
 
 * * *
 
